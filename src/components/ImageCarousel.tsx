@@ -31,7 +31,7 @@ export function ImageCarousel() {
           {/* Main carousel container */}
           <div className="relative bg-gray-100 rounded-lg md:rounded-xl overflow-hidden shadow-lg w-full">
             {/* Images */}
-            <div className="relative w-full aspect-square sm:aspect-[3/2] md:aspect-video overflow-hidden">
+            <div className="relative w-full aspect-square sm:aspect-[3/2] md:aspect-[2/1] overflow-hidden">
               {images.map((image, index) => (
                 <div
                   key={index}
