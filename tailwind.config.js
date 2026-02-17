@@ -70,6 +70,9 @@ export default {
         'gradient-primary': 'linear-gradient(135deg, #4F46E5 0%, #6b85ff 100%)',
         'gradient-accent': 'linear-gradient(135deg, #00bcd4 0%, #29b6f6 100%)',
       },
+      zIndex: {
+        '60': '60',
+      },
     },
   },
   plugins: [],

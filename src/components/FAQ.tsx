@@ -29,15 +29,15 @@ export function FAQ() {
 
   return (
     <section className="section-spacing bg-white">
-      <div className="container-custom">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-gray-900 mb-4">Frequently Asked Questions</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      <div className="container-custom px-4 md:px-0">
+        <div className="text-center mb-12 md:mb-16 animate-fade-in">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl text-gray-900 mb-3 md:mb-4 font-bold">Frequently Asked Questions</h2>
+          <p className="text-sm md:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto">
             Have questions? We've got answers. Check out our FAQs below.
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
           {faqs.map((faq, index) => (
             <div
               key={index}
@@ -45,19 +45,19 @@ export function FAQ() {
             >
               <button
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                className="w-full px-6 py-4 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors"
+                className="w-full px-4 md:px-6 py-3 md:py-4 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors"
               >
-                <span className="text-left font-semibold text-gray-900">{faq.question}</span>
+                <span className="text-left text-sm md:text-base font-semibold text-gray-900">{faq.question}</span>
                 <ChevronDown
-                  className={`w-5 h-5 text-primary-600 transition-transform duration-300 flex-shrink-0 ml-4 ${
+                  className={`w-5 h-5 text-primary-600 transition-transform duration-300 flex-shrink-0 ml-3 md:ml-4 ${
                     activeIndex === index ? 'rotate-180' : ''
                   }`}
                 />
               </button>
 
               {activeIndex === index && (
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                <div className="px-4 md:px-6 py-3 md:py-4 bg-gray-50 border-t border-gray-200">
+                  <p className="text-sm md:text-base text-gray-600 leading-relaxed">{faq.answer}</p>
                 </div>
               )}
             </div>

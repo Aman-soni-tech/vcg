@@ -23,7 +23,7 @@ export function Header({ onDemoClick, onCoursesClick, onContactClick, onAboutCli
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = ['Home', 'Courses', 'About', 'Enroll', 'Contact'];
+  const menuItems = ['Home', 'Courses', 'About'];
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     if (id === 'Home') {
@@ -73,15 +73,15 @@ export function Header({ onDemoClick, onCoursesClick, onContactClick, onAboutCli
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2 lg:gap-3">
             <button 
               onClick={onCoursesClick} 
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 text-primary-700 hover:bg-blue-100 font-semibold transition-all duration-200 border border-primary-200 hover:border-primary-400 shadow-sm hover:shadow-md"
+              className="flex items-center gap-1 lg:gap-2 px-3 lg:px-4 py-2 rounded-lg bg-blue-50 text-primary-700 hover:bg-blue-100 font-semibold text-sm lg:text-base transition-all duration-200 border border-primary-200 hover:border-primary-400 shadow-sm hover:shadow-md whitespace-nowrap"
             >
               All Courses
               <ChevronDown className="w-4 h-4" />
             </button>
-            <button onClick={onContactClick} className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold transition-all duration-200 border border-gray-300 hover:border-gray-400 shadow-sm hover:shadow-md">
+            <button onClick={onContactClick} className="flex items-center px-3 lg:px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold text-sm lg:text-base transition-all duration-200 border border-gray-300 hover:border-gray-400 shadow-sm hover:shadow-md whitespace-nowrap">
               Get in Touch
             </button>
           </div>
@@ -108,15 +108,21 @@ export function Header({ onDemoClick, onCoursesClick, onContactClick, onAboutCli
                 </a>
               ))}
               <button 
-                onClick={onCoursesClick}
-                className="flex items-center gap-2 w-full text-left px-4 py-2 text-primary-700 hover:bg-blue-50 font-semibold transition-colors rounded-lg border border-primary-200 bg-blue-50"
+                onClick={() => {
+                  setIsOpen(false);
+                  onCoursesClick?.();
+                }}
+                className="flex items-center justify-between gap-2 w-full px-4 py-3 text-primary-700 hover:bg-blue-50 font-semibold text-sm transition-colors rounded-lg border border-primary-200 bg-blue-50"
               >
                 All Courses
-                <ChevronDown className="w-4 h-4 ml-auto" />
+                <ChevronDown className="w-4 h-4 flex-shrink-0" />
               </button>
               <button 
-                onClick={onContactClick}
-                className="flex items-center gap-2 w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 font-semibold transition-colors rounded-lg border border-gray-300 bg-gray-100"
+                onClick={() => {
+                  setIsOpen(false);
+                  onContactClick?.();
+                }}
+                className="w-full px-4 py-3 text-gray-700 hover:bg-gray-100 font-semibold text-sm transition-colors rounded-lg border border-gray-300 bg-gray-100"
               >
                 Get in Touch
               </button>

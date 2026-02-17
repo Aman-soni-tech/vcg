@@ -46,6 +46,13 @@ export function CoursesDropdown({ isOpen, onClose }: CoursesDropdownProps) {
     return () => document.removeEventListener('mousemove', handleMouseMove);
   }, [isHovering, onClose, isOpen]);
 
+  // Auto-select first category on mobile when dropdown opens
+  useEffect(() => {
+    if (isOpen && !selectedCategory) {
+      setSelectedCategory('Frontend Development');
+    }
+  }, [isOpen, selectedCategory]);
+
   const courseCategories: CourseCategory[] = [
     {
       name: 'Frontend Development',
@@ -145,7 +152,7 @@ export function CoursesDropdown({ isOpen, onClose }: CoursesDropdownProps) {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/40 z-30 transition-opacity duration-300"
+        className="fixed inset-0 bg-black/40 z-50 transition-opacity duration-300"
         onMouseLeave={() => {
           if (isHovering) {
             setIsHovering(false);
@@ -156,46 +163,48 @@ export function CoursesDropdown({ isOpen, onClose }: CoursesDropdownProps) {
       {/* Dropdown Container */}
       <div 
         ref={dropdownRef}
-        className="fixed top-20 left-1/2 -translate-x-1/2 z-40 bg-white shadow-xl w-11/12 max-w-6xl rounded-2xl animate-fade-in overflow-hidden"
+        className="fixed top-16 md:top-20 left-0 md:left-1/2 md:-translate-x-1/2 right-0 md:right-auto z-60 bg-white shadow-xl w-full md:w-full md:max-w-6xl rounded-none md:rounded-2xl animate-fade-in overflow-hidden md:mx-0"
         onMouseEnter={() => setIsHovering(true)}
       >
-        <div className="max-h-[80vh] overflow-y-auto">
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900">All Courses</h2>
-            <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-lg">
-              <X className="w-6 h-6" />
+        <div className="max-h-[85vh] md:max-h-[80vh] overflow-y-auto">
+          <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-900">All Courses</h2>
+            <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded-lg flex-shrink-0">
+              <X className="w-6 h-6 md:w-6 md:h-6" />
             </button>
           </div>
 
-          <div className="grid md:grid-cols-12 gap-0 min-h-[60vh]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-0 min-h-[70vh] md:min-h-[60vh]">
             {/* Categories List */}
-            <div className="md:col-span-4 border-r border-gray-200">
-              {courseCategories.map((category) => (
-                <button
-                  key={category.name}
-                  onClick={() => setSelectedCategory(category.name)}
-                  className={`w-full text-left px-6 py-4 border-b border-gray-100 hover:bg-primary-50 transition-colors flex items-center justify-between ${
-                    selectedCategory === category.name ? 'bg-primary-50 border-l-4 border-l-primary-600' : ''
-                  }`}
-                >
-                  <span className="font-medium text-gray-700">{category.name}</span>
-                  <ChevronRight className="w-5 h-5 text-gray-400 md:hidden" />
-                </button>
-              ))}
+            <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-gray-200">
+              <div className="flex md:flex-col overflow-x-auto md:overflow-x-visible bg-white">
+                {courseCategories.map((category) => (
+                  <button
+                    key={category.name}
+                    onClick={() => setSelectedCategory(category.name)}
+                    className={`flex-shrink-0 md:flex-shrink text-left px-4 md:px-6 py-4 md:py-4 border-b-2 md:border-b md:border-r-0 border-gray-100 hover:bg-primary-50 transition-all flex items-center justify-between whitespace-nowrap md:whitespace-normal w-auto md:w-full min-w-max md:min-w-0 ${
+                      selectedCategory === category.name ? 'bg-primary-50 md:border-l-4 md:border-l-primary-600 border-b-primary-600 text-primary-600 font-semibold' : ''
+                    }`}
+                  >
+                    <span className="font-medium text-gray-700 text-sm md:text-sm">{category.name}</span>
+                    <ChevronRight className="w-4 h-4 md:w-4 md:h-4 text-gray-400 ml-2 md:hidden flex-shrink-0" />
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Courses List */}
-            <div className="md:col-span-8 bg-gray-50 p-6">
+            <div className="md:col-span-8 bg-gray-50 p-4 md:p-6">
               {activeCategory ? (
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">{activeCategory.name}</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">{activeCategory.name}</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                     {activeCategory.courses.map((course) => (
                       <div
                         key={course.name}
-                        className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
+                        className="bg-white rounded-lg p-3 md:p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
                       >
-                        <h4 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-1">
+                        <h4 className="font-semibold text-sm md:text-sm text-gray-900 group-hover:text-primary-600 transition-colors mb-2">
                           {course.name}
                         </h4>
                         {course.duration && (
@@ -211,7 +220,7 @@ export function CoursesDropdown({ isOpen, onClose }: CoursesDropdownProps) {
                           </span>
                         )}
                         {course.subcourses && course.subcourses.length > 0 && (
-                          <ul className="text-sm text-gray-600 space-y-1 my-2">
+                          <ul className="text-xs text-gray-600 space-y-1 my-2">
                             {course.subcourses.slice(0, 3).map((sub) => (
                               <li key={sub} className="text-xs text-gray-500">
                                 • {sub}
@@ -224,7 +233,7 @@ export function CoursesDropdown({ isOpen, onClose }: CoursesDropdownProps) {
                             )}
                           </ul>
                         )}
-                        <button className="mt-2 text-primary-600 text-sm font-medium group-hover:text-primary-700">
+                        <button className="mt-2 text-primary-600 text-xs md:text-sm font-medium group-hover:text-primary-700">
                           Enroll Now →
                         </button>
                       </div>
@@ -232,8 +241,9 @@ export function CoursesDropdown({ isOpen, onClose }: CoursesDropdownProps) {
                   </div>
                 </div>
               ) : (
-                <div className="h-full flex items-center justify-center">
-                  <p className="text-gray-500 text-lg">Select a category to view courses</p>
+                <div className="h-full flex flex-col items-center justify-center py-8">
+                  <p className="text-gray-400 text-sm md:text-base text-center mb-4">Select a category to view courses</p>
+                  <p className="text-xs text-gray-400 text-center">👉 Tap a category on the left to get started</p>
                 </div>
               )}
             </div>

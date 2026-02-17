@@ -82,41 +82,41 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto animate-fade-in">
+        <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto animate-fade-in">
           {/* Header */}
-          <div className="sticky top-0 bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-6 flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-white">Join Free Demo</h2>
-              <p className="text-primary-100 text-sm mt-1">Learn coding with personality development</p>
+          <div className="sticky top-0 bg-gradient-to-r from-primary-600 to-primary-700 px-4 md:px-6 py-4 md:py-6 flex items-center justify-between gap-3">
+            <div className="flex-1">
+              <h2 className="text-lg md:text-2xl font-bold text-white">Join Free Demo</h2>
+              <p className="text-primary-100 text-xs md:text-sm mt-0.5 md:mt-1">Learn coding with personality development</p>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:bg-white/20 p-2 rounded-lg transition-colors"
+              className="text-white hover:bg-white/20 p-1.5 md:p-2 rounded-lg transition-colors flex-shrink-0"
               aria-label="Close modal"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 md:w-6 md:h-6" />
             </button>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="p-4 md:p-6 space-y-3 md:space-y-4">
             {/* Success Message */}
             {successMessage && (
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-green-800 text-sm font-medium">{successMessage}</p>
+              <div className="p-3 md:p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-green-800 text-xs md:text-sm font-medium">{successMessage}</p>
               </div>
             )}
 
             {/* Error Message */}
             {errorMessage && (
-              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-800 text-sm font-medium">{errorMessage}</p>
+              <div className="p-3 md:p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-800 text-xs md:text-sm font-medium">{errorMessage}</p>
               </div>
             )}
 
             {/* Full Name */}
             <div>
-              <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="fullName" className="block text-xs md:text-sm font-semibold text-gray-700 mb-1.5 md:mb-2">
                 Full Name *
               </label>
               <input
@@ -128,13 +128,13 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
                 required
                 disabled={isSubmitting}
                 placeholder="Enter your full name"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100 text-sm"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-xs md:text-sm font-semibold text-gray-700 mb-1.5 md:mb-2">
                 Email Address *
               </label>
               <input
@@ -146,13 +146,13 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
                 required
                 disabled={isSubmitting}
                 placeholder="Enter your email"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100 text-sm"
               />
             </div>
 
             {/* Phone Number */}
             <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="phoneNumber" className="block text-xs md:text-sm font-semibold text-gray-700 mb-1.5 md:mb-2">
                 Phone Number *
               </label>
               <input
@@ -164,13 +164,13 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
                 required
                 disabled={isSubmitting}
                 placeholder="Enter your phone number"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100 text-sm"
               />
             </div>
 
             {/* Course Interest */}
             <div>
-              <label htmlFor="courseInterest" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="courseInterest" className="block text-xs md:text-sm font-semibold text-gray-700 mb-1.5 md:mb-2">
                 Course Interest *
               </label>
               <select
@@ -180,7 +180,7 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
                 onChange={handleChange}
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100 text-sm"
               >
                 <option value="">Select a course</option>
                 <option value="web-development">Web Development</option>
@@ -194,7 +194,7 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
 
             {/* Experience Level */}
             <div>
-              <label htmlFor="experience" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="experience" className="block text-xs md:text-sm font-semibold text-gray-700 mb-1.5 md:mb-2">
                 Experience Level *
               </label>
               <select
@@ -204,7 +204,7 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
                 onChange={handleChange}
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100 text-sm"
               >
                 <option value="">Select your level</option>
                 <option value="beginner">Beginner</option>
@@ -217,12 +217,12 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold py-3 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none mt-6"
+              className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold py-2.5 md:py-3 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none mt-4 md:mt-6 text-sm md:text-base"
             >
               {isSubmitting ? 'Submitting...' : 'Book Your Free Demo'}
             </button>
 
-            <p className="text-xs text-gray-500 text-center mt-4">
+            <p className="text-xs text-gray-500 text-center mt-2 md:mt-4">
               We'll contact you shortly to confirm your demo session. No spam, promise!
             </p>
           </form>

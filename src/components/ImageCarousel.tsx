@@ -29,9 +29,9 @@ export function ImageCarousel() {
       <div className="container-custom px-0">
         <div className="relative w-full">
           {/* Main carousel container */}
-          <div className="relative bg-gray-100 rounded-xl overflow-hidden shadow-lg w-full">
+          <div className="relative bg-gray-100 rounded-lg md:rounded-xl overflow-hidden shadow-lg w-full">
             {/* Images */}
-            <div className="relative w-full aspect-video md:aspect-[16/9] overflow-hidden">
+            <div className="relative w-full aspect-square sm:aspect-video md:aspect-[16/9] overflow-hidden">
               {images.map((image, index) => (
                 <div
                   key={index}
@@ -53,14 +53,14 @@ export function ImageCarousel() {
             </div>
 
             {/* Dot indicators */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+            <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-1.5 md:gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
+                  className={`h-1.5 md:h-2 rounded-full transition-all duration-300 ${
                     index === currentSlide
-                      ? 'bg-white w-6'
-                      : 'bg-white/50 w-2'
+                      ? 'bg-white w-5 md:w-6'
+                      : 'bg-white/50 w-1.5 md:w-2'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
