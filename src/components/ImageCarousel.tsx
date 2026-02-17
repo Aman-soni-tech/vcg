@@ -31,7 +31,7 @@ export function ImageCarousel() {
           {/* Main carousel container */}
           <div className="relative bg-gray-100 rounded-lg md:rounded-xl overflow-hidden shadow-lg w-full">
             {/* Images */}
-            <div className="relative w-full aspect-square sm:aspect-video md:aspect-[16/9] overflow-hidden">
+            <div className="relative w-full aspect-square sm:aspect-[3/2] md:aspect-video overflow-hidden">
               {images.map((image, index) => (
                 <div
                   key={index}
@@ -46,7 +46,7 @@ export function ImageCarousel() {
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               ))}
