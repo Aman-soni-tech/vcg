@@ -183,12 +183,14 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
                 className="w-full px-3 md:px-4 py-2.5 md:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all disabled:bg-gray-100 text-sm"
               >
                 <option value="">Select a course</option>
-                <option value="web-development">Web Development</option>
-                <option value="javascript">JavaScript Basics</option>
-                <option value="react">React.js Fundamentals</option>
-                <option value="python">Python Programming</option>
-                <option value="mobile-development">Mobile Development</option>
-                <option value="other">Other</option>
+                <option value="c-cpp">C/C++</option>
+                <option value="core-java">Core Java</option>
+                <option value="advanced-java">Advanced Java</option>
+                <option value="collection-framework">Collection Framework</option>
+                <option value="multithreading">Multithreading</option>
+                <option value="dsa">DSA</option>
+                <option value="springboot">SpringBoot</option>
+                <option value="mysql">MySql</option>
               </select>
             </div>
 
@@ -221,10 +223,6 @@ export function JoinDemoModal({ isOpen, onClose }: JoinDemoModalProps) {
             >
               {isSubmitting ? 'Submitting...' : 'Book Your Free Demo'}
             </button>
-
-            <p className="text-xs text-gray-500 text-center mt-2 md:mt-4">
-              We'll contact you shortly to confirm your demo session. No spam, promise!
-            </p>
           </form>
         </div>
       </div>

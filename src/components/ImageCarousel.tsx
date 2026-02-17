@@ -8,9 +8,9 @@ interface CarouselImage {
 export function ImageCarousel() {
   const images: CarouselImage[] = [
     { src: '/images/one.png', alt: 'Slide 1' },
-    { src: '/images/two.jpeg', alt: 'Slide 2' },
+    { src: '/images/two.png', alt: 'Slide 2' },
     { src: '/images/three.png', alt: 'Slide 3' },
-    { src: '/images/four.jpg', alt: 'Slide 4' },
+    { src: '/images/four.png', alt: 'Slide 4' },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);

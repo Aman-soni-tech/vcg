@@ -1,13 +1,23 @@
-import { useState, useEffect } from 'react';
-import { X, Send, Phone, MapPin, Mail } from 'lucide-react';
-import { submitContact, getCourses, Course } from '../lib/supabase';
+import { useState } from 'react';
+import { Send, Phone, MapPin, Mail } from 'lucide-react';
+import { submitContact } from '../lib/supabase';
 
-interface GetInTouchModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface GetInTouchProps {
+  onBackClick: () => void;
 }
 
-export function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProps) {
+const AVAILABLE_COURSES = [
+  { id: '1', name: 'C/C++' },
+  { id: '2', name: 'Core Java' },
+  { id: '3', name: 'Advanced Java' },
+  { id: '4', name: 'Collection Framework' },
+  { id: '5', name: 'Multithreading' },
+  { id: '6', name: 'DSA' },
+  { id: '7', name: 'SpringBoot' },
+  { id: '8', name: 'MySql' },
+];
+
+export function GetInTouch({ onBackClick }: GetInTouchProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -15,23 +25,9 @@ export function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProps) {
     course_interest: '',
     message: '',
   });
-  const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    const loadCourses = async () => {
-      try {
-        const data = await getCourses();
-        setCourses(data);
-      } catch (error) {
-        console.error('Error loading courses:', error);
-      }
-    };
-
-    loadCourses();
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -55,7 +51,6 @@ export function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProps) {
       });
       setTimeout(() => {
         setSubmitted(false);
-        onClose();
       }, 2000);
     } catch (err) {
       setError('Failed to submit form. Please try again.');
@@ -65,72 +60,111 @@ export function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProps) {
     }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <>
-      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl my-4 md:my-8 animate-fade-in">
-          <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between rounded-t-2xl">
-            <h2 className="text-2xl font-semibold text-gray-900">Get in Touch</h2>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
-            >
-              <X className="w-6 h-6 text-gray-600" />
-            </button>
+    <section className="pt-16 md:pt-24 pb-12 md:pb-16 bg-white px-4 md:px-0">
+      <div className="container-custom">
+        {/* Back Button */}
+        <button
+          onClick={onBackClick}
+          className="mb-6 md:mb-8 flex items-center gap-2 text-primary-700 hover:text-primary-800 font-semibold transition-colors text-sm md:text-base"
+        >
+          <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Home
+        </button>
+
+        <div className="mb-8 md:mb-12 animate-fade-in">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8 md:mb-12">Get in Touch</h2>
+
+          <div className="grid md:grid-cols-1 gap-8 mb-12">
+            {/* Contact Info Cards - Hidden on Mobile */}
+            <div className="hidden md:grid grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl md:rounded-2xl p-4 md:p-6 text-center border border-gray-200 hover:border-primary-300 hover:shadow-medium transition-all duration-300">
+                <div className="p-3 bg-gradient-primary rounded-lg text-white w-fit mx-auto mb-4">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-3 text-base">Phone</h3>
+                <a href="tel:+916232983739" className="text-primary-700 hover:text-primary-800 font-medium text-sm break-all">
+                  +91 6232 983 739
+                </a>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl md:rounded-2xl p-4 md:p-6 text-center border border-gray-200 hover:border-primary-300 hover:shadow-medium transition-all duration-300">
+                <div className="p-3 bg-gradient-primary rounded-lg text-white w-fit mx-auto mb-4">
+                  <MapPin className="w-6 h-6" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-3 text-base">Location</h3>
+                <p className="text-gray-600 text-sm">Indore, Madhya Pradesh</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl md:rounded-2xl p-4 md:p-6 text-center border border-gray-200 hover:border-primary-300 hover:shadow-medium transition-all duration-300">
+                <div className="p-3 bg-gradient-primary rounded-lg text-white w-fit mx-auto mb-4">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-3 text-base">Email</h3>
+                <a href="mailto:info@vidhyacode.com" className="text-primary-700 hover:text-primary-800 font-medium text-sm break-all">
+                  info@vidhyacode.com
+                </a>
+              </div>
+            </div>
+
+            {/* Contact Info for Mobile */}
+            <div className="md:hidden space-y-3">
+              <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-lg p-4 border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 bg-gradient-primary rounded-lg text-white">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900">Phone</h3>
+                </div>
+                <a href="tel:+916232983739" className="text-primary-700 hover:text-primary-800 font-medium text-sm ml-11 break-all">
+                  +91 6232 983 739
+                </a>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-lg p-4 border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 bg-gradient-primary rounded-lg text-white">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900">Location</h3>
+                </div>
+                <p className="text-gray-600 text-sm ml-11">Indore, Madhya Pradesh</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-lg p-4 border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 bg-gradient-primary rounded-lg text-white">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900">Email</h3>
+                </div>
+                <a href="mailto:info@vidhyacode.com" className="text-primary-700 hover:text-primary-800 font-medium text-sm ml-11 break-all">
+                  info@vidhyacode.com
+                </a>
+              </div>
+            </div>
           </div>
 
-          <div className="p-6 md:p-8">
-          {/* Contact Info Cards - Hidden on Mobile */}
-          <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 pb-4 md:pb-6 border-b border-gray-200">
-            <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-lg p-3 md:p-4 text-center h-full">
-              <div className="p-3 bg-gradient-primary rounded-lg text-white w-fit mx-auto mb-3">
-                <Phone className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm">Phone</h3>
-              <a href="tel:+916232983739" className="text-primary-700 hover:text-primary-800 font-medium text-xs md:text-sm break-all">
-                +91 6232 983 739
-              </a>
-            </div>
-
-            <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-lg p-3 md:p-4 text-center h-full">
-              <div className="p-3 bg-gradient-primary rounded-lg text-white w-fit mx-auto mb-3">
-                <MapPin className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm">Location</h3>
-              <p className="text-gray-600 text-xs md:text-sm">Indore, Madhya Pradesh</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-lg p-3 md:p-4 text-center h-full">
-              <div className="p-3 bg-gradient-primary rounded-lg text-white w-fit mx-auto mb-3">
-                <Mail className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm">Email</h3>
-              <a href="mailto:info@vidhyacode.com" className="text-primary-700 hover:text-primary-800 font-medium text-xs md:text-sm break-all">
-                info@vidhyacode.com
-              </a>
-            </div>
-          </div>
-
-          {/* Form */}
-          <div className="pt-3 sm:pt-4 md:pt-6">
-            <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Send us a Message</h3>
+          {/* Form Section */}
+          <div className="border-t border-gray-200 pt-8 md:pt-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8">Send us a Message</h3>
 
             {submitted && (
-              <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm md:text-base">
                 Thank you! We've received your message and will get back to you soon.
               </div>
             )}
 
             {error && (
-              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm md:text-base">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6 max-w-2xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="flex flex-col">
                   <label className="block text-xs md:text-sm font-semibold text-gray-700 mb-2">Name</label>
                   <input
@@ -180,7 +214,7 @@ export function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProps) {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-sm"
                 >
                   <option value="">Select a course</option>
-                  {courses.map((course) => (
+                  {AVAILABLE_COURSES.map((course) => (
                     <option key={course.id} value={course.name}>
                       {course.name}
                     </option>
@@ -212,8 +246,7 @@ export function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProps) {
             </form>
           </div>
         </div>
-        </div>
       </div>
-    </>
+    </section>
   );
 }

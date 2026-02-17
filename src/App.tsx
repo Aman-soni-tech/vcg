@@ -12,22 +12,21 @@ import { CTA } from './components/CTA';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { About } from './components/About';
+import { GetInTouch } from './components/GetInTouchModal';
 import { JoinDemoModal } from './components/JoinDemoModal';
 import { CoursesDropdown } from './components/CoursesDropdown';
-import { GetInTouchModal } from './components/GetInTouchModal';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false);
-  const [isGetInTouchOpen, setIsGetInTouchOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'getInTouch'>('home');
 
   return (
     <div className="min-h-screen bg-white">
       <Header 
         onDemoClick={() => setIsModalOpen(true)} 
         onCoursesClick={() => setIsCoursesDropdownOpen(true)}
-        onContactClick={() => setIsGetInTouchOpen(true)}
+        onContactClick={() => setCurrentPage('getInTouch')}
         onAboutClick={() => setCurrentPage('about')}
         onHomeClick={() => setCurrentPage('home')}
       />
@@ -43,16 +42,20 @@ function App() {
           <CTA onDemoClick={() => setIsModalOpen(true)} />
           <Footer />
         </>
-      ) : (
+      ) : currentPage === 'about' ? (
         <>
           <About onBackClick={() => setCurrentPage('home')} />
+          <Footer />
+        </>
+      ) : (
+        <>
+          <GetInTouch onBackClick={() => setCurrentPage('home')} />
           <Footer />
         </>
       )}
       
       <JoinDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <CoursesDropdown isOpen={isCoursesDropdownOpen} onClose={() => setIsCoursesDropdownOpen(false)} />
-      <GetInTouchModal isOpen={isGetInTouchOpen} onClose={() => setIsGetInTouchOpen(false)} />
     </div>
   );
 }
