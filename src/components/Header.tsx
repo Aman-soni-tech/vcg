@@ -8,9 +8,11 @@ interface HeaderProps {
   onContactClick?: () => void;
   onAboutClick?: () => void;
   onHomeClick?: () => void;
+  onResultsClick?: () => void;
+  onResultsLoginClick?: () => void;
 }
 
-export function Header({ onDemoClick, onCoursesClick, onContactClick, onAboutClick, onHomeClick }: HeaderProps) {
+export function Header({ onDemoClick, onCoursesClick, onContactClick, onAboutClick, onHomeClick, onResultsClick, onResultsLoginClick }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -84,6 +86,12 @@ export function Header({ onDemoClick, onCoursesClick, onContactClick, onAboutCli
             <button onClick={onContactClick} className="flex items-center px-3 lg:px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold text-sm lg:text-base transition-all duration-200 border border-gray-300 hover:border-gray-400 shadow-sm hover:shadow-md whitespace-nowrap">
               Get in Touch
             </button>
+            <button onClick={onResultsClick} className="flex items-center px-3 lg:px-4 py-2 rounded-lg bg-green-50 text-green-700 hover:bg-green-100 font-semibold text-sm lg:text-base transition-all duration-200 border border-green-300 hover:border-green-400 shadow-sm hover:shadow-md whitespace-nowrap">
+              Results
+            </button>
+            <button onClick={onResultsLoginClick} className="flex items-center px-3 lg:px-4 py-2 rounded-lg bg-orange-50 text-orange-700 hover:bg-orange-100 font-semibold text-sm lg:text-base transition-all duration-200 border border-orange-300 hover:border-orange-400 shadow-sm hover:shadow-md whitespace-nowrap">
+              Login
+            </button>
           </div>
 
           <button
@@ -125,6 +133,24 @@ export function Header({ onDemoClick, onCoursesClick, onContactClick, onAboutCli
                 className="w-full px-4 py-3 text-gray-700 hover:bg-gray-100 font-semibold text-sm transition-colors rounded-lg border border-gray-300 bg-gray-100"
               >
                 Get in Touch
+              </button>
+              <button 
+                onClick={() => {
+                  setIsOpen(false);
+                  onResultsClick?.();
+                }}
+                className="w-full px-4 py-3 text-green-700 hover:bg-green-100 font-semibold text-sm transition-colors rounded-lg border border-green-300 bg-green-50"
+             >
+                Results
+              </button>
+              <button 
+                onClick={() => {
+                  setIsOpen(false);
+                  onResultsLoginClick?.();
+                }}
+                className="w-full px-4 py-3 text-orange-700 hover:bg-orange-100 font-semibold text-sm transition-colors rounded-lg border border-orange-300 bg-orange-50"
+              >
+Login
               </button>
             </div>
           </div>
